@@ -5,7 +5,7 @@ aws configure
 ```
 ## Create EC2 Instance 
 ```
-#Create keyname and sec grp id
+#Create keyname, sec grp id, subnet id
 aws ec2 run-instances --image-id ami-0c7217cdde317cfec --count 1 --instance-type t2.medium --key-name awsuseast1 --security-group-ids jegan-sec-grp --subnet-id <subnet-id>
 
 ```
