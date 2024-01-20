@@ -1,0 +1,28 @@
+
+Artifact push details
+```
+    stage('Push artifacts into artifactory') {
+        steps {
+          rtUpload (
+            serverId: 'my-artifactory',
+            spec: '''{
+                  "files": [
+                    {
+                      "pattern": "*.war",
+                      "target": "example-repo-local/build-files/"
+                    }
+                ]
+            }'''
+          )
+        }
+    }
+```
+Deploy to server from artifact
+```
+    stage('Pull artifacts & deploy on tomcat') {
+        steps{
+              withCredentials([usernamePassword(credentialsId: 'artifactory-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                sh 'ssh ubuntu@<public-ip> curl -u ' + USERNAME + ':' + PASSWORD + ' -X GET "<https://artifactory.com-JFrog-Artifactory-URL" --output /opt/tomcat9/webapps/deploy.war'
+        }
+    }
+```
